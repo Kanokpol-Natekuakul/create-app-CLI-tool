@@ -1,0 +1,28 @@
+{
+  "name": "create-app",
+  "version": "1.0.0",
+  "description": "CLI Tool จัดการโปรเจคอัตโนมัติ - scaffold projects with custom template engine",
+  "type": "module",
+  "bin": {
+    "create-app": "./bin/create-app.js"
+  },
+  "scripts": {
+    "test": "node bin/create-app.js test-output --react --tailwind"
+  },
+  "keywords": [
+    "cli",
+    "scaffold",
+    "project-generator",
+    "template-engine"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "gradient-string": "^3.0.0",
+    "inquirer": "^9.3.0",
+    "ora": "^8.1.0"
+  }
+}
