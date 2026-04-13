@@ -24,6 +24,7 @@ const ADDONS = {
   husky: { name: 'Husky & Lint-Staged', value: 'husky' },
   ci: { name: 'GitHub Actions (CI/CD)', value: 'ci' },
   router: { name: 'Auto Routing (React Router / Vue Router)', value: 'router' },
+  store: { name: 'State Management (Zustand / Pinia)', value: 'store' },
   docker: { name: 'Docker (Dockerfile & Compose)', value: 'docker' },
 };
 
@@ -46,6 +47,7 @@ export async function run() {
     .option('--test', 'Add Vitest Testing Framework')
     .option('--ci', 'Add GitHub Actions CI Pipeline')
     .option('--router', 'Add Routing (react-router-dom / vue-router)')
+    .option('--store', 'Add State Management (Zustand / Pinia)')
     .option('--husky', 'Add Husky & Lint-Staged')
     .option('--docker', 'Add Docker Setup')
     .option('--git', 'Initialize a git repository')
@@ -130,13 +132,14 @@ async function createProject(projectNameArg, options) {
   if (options.test) addons.push('vitest');
   if (options.ci) addons.push('ci');
   if (options.router) addons.push('router');
+  if (options.store) addons.push('store');
   if (options.husky) {
     addons.push('husky');
     options.git = true; // Husky needs Git
   }
   if (options.docker) addons.push('docker');
 
-  if (addons.length === 0 && !options.ts && !options.tailwind && !options.eslint && !options.prettier && !options.test && !options.ci && !options.router && !options.husky && !options.docker) {
+  if (addons.length === 0 && !options.ts && !options.tailwind && !options.eslint && !options.prettier && !options.test && !options.ci && !options.router && !options.store && !options.husky && !options.docker) {
     // Only prompt if no addon flags were explicitly used
     const hasAnyFlag = options.react || options.vue || options.node || options.fullstack;
     if (!hasAnyFlag) {
