@@ -25,6 +25,7 @@ const ADDONS = {
   ci: { name: 'GitHub Actions (CI/CD)', value: 'ci' },
   router: { name: 'Auto Routing (React Router / Vue Router)', value: 'router' },
   store: { name: 'State Management (Zustand / Pinia)', value: 'store' },
+  prisma: { name: 'Prisma ORM (Backend only)', value: 'prisma' },
   docker: { name: 'Docker (Dockerfile & Compose)', value: 'docker' },
 };
 
@@ -48,6 +49,7 @@ export async function run() {
     .option('--ci', 'Add GitHub Actions CI Pipeline')
     .option('--router', 'Add Routing (react-router-dom / vue-router)')
     .option('--store', 'Add State Management (Zustand / Pinia)')
+    .option('--prisma', 'Add Prisma ORM Setup (Backend only)')
     .option('--husky', 'Add Husky & Lint-Staged')
     .option('--docker', 'Add Docker Setup')
     .option('--git', 'Initialize a git repository')
@@ -133,13 +135,14 @@ async function createProject(projectNameArg, options) {
   if (options.ci) addons.push('ci');
   if (options.router) addons.push('router');
   if (options.store) addons.push('store');
+  if (options.prisma) addons.push('prisma');
   if (options.husky) {
     addons.push('husky');
     options.git = true; // Husky needs Git
   }
   if (options.docker) addons.push('docker');
 
-  if (addons.length === 0 && !options.ts && !options.tailwind && !options.eslint && !options.prettier && !options.test && !options.ci && !options.router && !options.store && !options.husky && !options.docker) {
+  if (addons.length === 0 && !options.ts && !options.tailwind && !options.eslint && !options.prettier && !options.test && !options.ci && !options.router && !options.store && !options.prisma && !options.husky && !options.docker) {
     // Only prompt if no addon flags were explicitly used
     const hasAnyFlag = options.react || options.vue || options.node || options.fullstack;
     if (!hasAnyFlag) {
