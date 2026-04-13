@@ -1,10 +1,10 @@
 {
-  "name": "create-app",
+  "name": "create-pol-app",
   "version": "1.0.0",
   "description": "CLI Tool จัดการโปรเจคอัตโนมัติ - scaffold projects with custom template engine",
   "type": "module",
   "bin": {
-    "create-app": "./bin/create-app.js"
+    "create-pol-app": "./bin/create-app.js"
   },
   "scripts": {
     "test": "node bin/create-app.js test-output --react --tailwind"
