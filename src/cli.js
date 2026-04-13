@@ -20,6 +20,7 @@ const ADDONS = {
   tailwind: { name: 'Tailwind CSS', value: 'tailwind' },
   eslint: { name: 'ESLint', value: 'eslint' },
   prettier: { name: 'Prettier', value: 'prettier' },
+  vitest: { name: 'Vitest Testing Framework', value: 'vitest' },
   husky: { name: 'Husky & Lint-Staged', value: 'husky' },
   docker: { name: 'Docker (Dockerfile & Compose)', value: 'docker' },
 };
@@ -40,6 +41,7 @@ export async function run() {
     .option('--tailwind', 'Add Tailwind CSS')
     .option('--eslint', 'Add ESLint')
     .option('--prettier', 'Add Prettier')
+    .option('--test', 'Add Vitest Testing Framework')
     .option('--husky', 'Add Husky & Lint-Staged')
     .option('--docker', 'Add Docker Setup')
     .option('--git', 'Initialize a git repository')
@@ -121,13 +123,14 @@ async function createProject(projectNameArg, options) {
   if (options.tailwind) addons.push('tailwind');
   if (options.eslint) addons.push('eslint');
   if (options.prettier) addons.push('prettier');
+  if (options.test) addons.push('vitest');
   if (options.husky) {
     addons.push('husky');
     options.git = true; // Husky needs Git
   }
   if (options.docker) addons.push('docker');
 
-  if (addons.length === 0 && !options.ts && !options.tailwind && !options.eslint && !options.prettier && !options.husky && !options.docker) {
+  if (addons.length === 0 && !options.ts && !options.tailwind && !options.eslint && !options.prettier && !options.test && !options.husky && !options.docker) {
     // Only prompt if no addon flags were explicitly used
     const hasAnyFlag = options.react || options.vue || options.node || options.fullstack;
     if (!hasAnyFlag) {
