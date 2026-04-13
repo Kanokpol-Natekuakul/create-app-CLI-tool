@@ -12,6 +12,7 @@ const STACKS = {
   react: { name: 'React + Vite', value: 'react' },
   vue: { name: 'Vue + Vite', value: 'vue' },
   node: { name: 'Node.js + Express', value: 'node' },
+  fullstack: { name: 'Fullstack Monorepo (React/Vue + Node)', value: 'fullstack' },
 };
 
 const ADDONS = {
@@ -34,6 +35,7 @@ export async function run() {
     .option('--react', 'Use React + Vite stack')
     .option('--vue', 'Use Vue + Vite stack')
     .option('--node', 'Use Node.js + Express stack')
+    .option('--fullstack', 'Use Fullstack Monorepo')
     .option('--ts', 'Use TypeScript')
     .option('--tailwind', 'Add Tailwind CSS')
     .option('--eslint', 'Add ESLint')
@@ -85,6 +87,7 @@ async function createProject(projectNameArg, options) {
   if (options.react) stackName = 'react';
   else if (options.vue) stackName = 'vue';
   else if (options.node) stackName = 'node';
+  else if (options.fullstack) stackName = 'fullstack';
 
   if (!stackName) {
     const answers = await inquirer.prompt([
@@ -96,6 +99,20 @@ async function createProject(projectNameArg, options) {
       },
     ]);
     stackName = answers.stack;
+  }
+
+  let frontendStack = 'react';
+  if (stackName === 'fullstack') {
+    const answers = await inquirer.prompt([{
+      type: 'list',
+      name: 'frontend',
+      message: 'Choose frontend framework for your Monorepo:',
+      choices: [
+        { name: 'React + Vite', value: 'react' },
+        { name: 'Vue + Vite', value: 'vue' }
+      ]
+    }]);
+    frontendStack = answers.frontend;
   }
 
   // ─── Resolve addons ─────────────────────────────────
@@ -112,7 +129,7 @@ async function createProject(projectNameArg, options) {
 
   if (addons.length === 0 && !options.ts && !options.tailwind && !options.eslint && !options.prettier && !options.husky && !options.docker) {
     // Only prompt if no addon flags were explicitly used
-    const hasAnyFlag = options.react || options.vue || options.node;
+    const hasAnyFlag = options.react || options.vue || options.node || options.fullstack;
     if (!hasAnyFlag) {
       const answers = await inquirer.prompt([
         {
@@ -186,8 +203,38 @@ async function createProject(projectNameArg, options) {
   console.log('');
 
   // ─── Scaffold ───────────────────────────────────────
-  const scaffolder = new Scaffolder(projectName, projectPath, stackName, addons);
-  await scaffolder.scaffold();
+  if (stackName === 'fullstack') {
+    // 1. Create root directory
+    await fs.mkdir(projectPath, { recursive: true });
+
+    // 2. Setup root workspace package.json
+    const rootPkg = {
+      name: projectName,
+      version: "1.0.0",
+      private: true,
+      workspaces: ["apps/*"],
+      scripts: {
+        "dev": "npm run dev --workspaces",
+        "build": "npm run build --workspaces"
+      }
+    };
+    await fs.writeFile(path.join(projectPath, 'package.json'), JSON.stringify(rootPkg, null, 2));
+
+    // 3. Scaffold Backend
+    console.log(chalk.blue('\n[Backend] Scaffolding...'));
+    const backendPath = path.join(projectPath, 'apps', 'backend');
+    const backendScaffolder = new Scaffolder('backend', backendPath, 'node', addons);
+    await backendScaffolder.scaffold();
+
+    // 4. Scaffold Frontend
+    console.log(chalk.blue('\n[Frontend] Scaffolding...'));
+    const frontendPath = path.join(projectPath, 'apps', 'frontend');
+    const frontendScaffolder = new Scaffolder('frontend', frontendPath, frontendStack, addons);
+    await frontendScaffolder.scaffold();
+  } else {
+    const scaffolder = new Scaffolder(projectName, projectPath, stackName, addons);
+    await scaffolder.scaffold();
+  }
 
   // ─── Git Init ───────────────────────────────────────
   if (options.git) {
