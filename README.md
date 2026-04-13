@@ -1,126 +1,104 @@
 <div align="center">
-  <h1>🚀 create-app</h1>
-  <p><strong>CLI Tool จัดการโปรเจคอัจฉริยะ — ร่นเวลา Setup โปรเจคจาก 30 นาทีเหลือแค่ 3 วินาที! ⚡</strong></p>
+  <h1>🚀 create-pol-app</h1>
+  <p><strong>สุดยอด CLI Tool จัดการโปรเจคอัจฉริยะ — เปลี่ยนเวลา Setup โปรเจคจากครึ่งชั่วโมง ให้พุ่งพรวดเหลือ 3 วินาที! ⚡</strong></p>
+  <img src="https://img.shields.io/npm/v/create-pol-app?color=purple&label=npm" alt="npm package" />
+  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License MIT" />
 </div>
 
 ---
 
-## 🔥 ฟีเจอร์เด่น (Premium Developer Experience)
+## 🔥 ฟีเจอร์เด่นระดับโลก (Premium Developer Experience)
 
 - 🧠 **Smart Template Engine**: มี Engine เขียนขึ้นเอง รองรับตัวแปร, ลูป, เงื่อนไขแบบ Handlebars และ Syntax แบกกันชนพิเศษสำหรับ React/Vue (`{/* tpl:var */}`)
 - 🎨 **Beautiful UI**: ตัวหนังสือไล่สี Gradient พร้อมกรอบตอบโต้สวยงาม และแอนิเมชันตอนโหลดโปรเจค พรีเมียมสุดๆ!
-- 📦 **Multi-Package Manager**: เลือกลง Dependency ด้วย `npm`, `yarn`, `pnpm` หรือความเร็วแสงแบบ `bun` ได้ดั่งใจ (`--pm`)
-- 🐙 **Auto Git**: สั่ง `git init` และเขียน `Initial commit` พร้อมไฟล์ `.gitignore` ให้อัตโนมัติ (`--git`)
-- 💻 **Auto Editor**: สร้างเสร็จปุ๊บ เปิด VSCode ลุยโค้ดต่อปั๊บ (`--open`)
-- 🧩 **Modular Add-ons**: เลือกติดตั้ง Tailwind, ESLint, Prettier แยกกันได้ หรือจะมัดรวมกันก็ไม่มีปัญหา
-- 🦕 **TypeScript First**: สั่งเปิดใช้งาน TypeScript (`--ts`) แปลงไฟล์จาก `.jsx/.js` เป็น `.tsx/.ts` ให้ทันที ไม่ต้องทำ Template ซ้ำซ้อน!
-- 🐳 **Docker Ready**: สั่ง `--docker` เพื่อปลุกเสก `Dockerfile` และ `docker-compose.yml` เอาไปรันขึ้น Server ได้เลย
-- 🐶 **Husky & Lint-Staged**: ผูก Git Hook ล็อคความสะอาดของโค้ดก่อน Commit ด้วย `--husky`
+- 🏗️ **Monorepo Architecture**: รองรับการระเบิดร่างสร้างโฟลเดอร์ Backend/Frontend พร้อมกันด้วยเทคโนโลยี NPM Workspaces (`--fullstack`)
+- 📦 **Multi-Package Manager**: เลือกลง Dependency ด้วย `npm`, `yarn`, `pnpm` หรือวิ่งผ่านความเร็วแสงแบบ `bun` ได้ดั่งใจ (`--pm`)
+- 🧩 **Modular Add-ons มหาศาล**: เลือกรวมร่างฟีเจอร์ที่คุณอยากได้ ทั้ง Routing, Store, ORM หรือ Testing ได้อย่างอิสระ
+- 🦕 **TypeScript First**: สั่งเปิดใช้งาน TypeScript (`--ts`) แปลงโครงสร้างโค้ดเป็น `.tsx/.ts` ให้ทันที!
 
 ---
 
-## 📦 ติดตั้งใช้งาน
+## � ติดตั้งและใช้งานทันที (ผ่าน NPM)
 
-โคลนโปรเจคนี้ลงเครื่อง แล้วทำเป็น Global Command ได้เลย ง่ายกว่านี้ไม่มีแล้ว:
-
+ไม่ต้อง Clone โปรเจค แค่พิมพ์คำสั่งเดียวใน Terminal:
 ```bash
-# 1. เข้าไปที่โฟลเดอร์โปรเจค
-cd path/to/project
-
-# 2. Install dependencies ของ CLI
-npm install
-
-# 3. Link เป็น global command
-npm link
+npx create-pol-app@latest my-app
 ```
-
-เสร็จแล้ว! ตอนนี้คุณสามารถเรียกคำสั่ง `create-app` ได้จาก **ทุกที่หนในคอมพิวเตอร์ของคุณ** ✅
+(หรือพิมพ์ `npx create-pol-app` เฉยๆ ก็ได้ โปรแกรมจะป็อปอัพ UI ถามโต้ตอบให้เอง)
 
 ---
 
 ## 🎯 วิธีใช้งาน
 
 ### 🕹️ แบบ Interactive Mode (ตอบคำถามรัวๆ)
-
-เหมาะสำหรับคนขี้เกียจจำคำสั่ง พิมพ์แค่นี้จบ:
-
+สำหรับคนขี้เกียจจำคำสั่ง พิมพ์แค่นี้จบ:
 ```bash
-create-app
+npx create-pol-app
 ```
-ระบบจะมี UI สวยๆ เด้งมาให้เลือกเลย:
+จากนั้นระบบจะเด้งเมนูให้เลือก:
 1. ตั้งชื่อโปรเจค
-2. เลือก Framework/Stack (React, Vue, Node)
-3. เลือกลูกเล่นต่างๆ (TS, Tailwind, Linter, Docker, Husky)
-4. เลือก Package Manager ตัวโปรด (npm, yarn, pnpm, bun)
-5. กดตกลง เปิด VSCode 🚀
+2. เลือก Framework (React, Vue, Node.js หรือ Fullstack Monorepo)
+3. เลือกลูกเล่นเสริม (Tailwind, Zustand, Prisma, React Router ฯลฯ)
+4. เลือก Package Manager ตัวโปรด
+5. กดตกลง เปิด VSCode ลุยโค้ดได้เลย 🚀
 
 ### ⚡ แบบ Fast Mode (ใส่ Flags ให้ครบจบในบรรทัดเดียว)
-
 ```bash
-create-app <ชื่อโปรเจค> [flags]
+npx create-pol-app <ชื่อโปรเจค> [flags]
 ```
 
-**ตัวอย่างสุดโหด (เอาทุกอย่าง):**
+**🔥 ตัวอย่างระดับเทพ (Frontend เต็มยศ):**
 ```bash
-create-app my-epic-app --react --ts --tailwind --eslint --prettier --git --docker --husky --pm bun --open
+npx create-pol-app epic-frontend --react --ts --router --store --tailwind --test
 ```
 
-**ตัวอย่างประหยัดเวลา:**
+**☁️ ตัวอย่างระดับเทพ (Backend API สกิลบอส):**
 ```bash
-# Node.js API + Docker
-create-app my-api --node --docker --pm yarn
+npx create-pol-app my-api --node --ts --prisma --eslint --docker --ci
+```
 
-# Vue 3 แบบไวๆ เปิด VSCode เลย
-create-app my-vue-app --vue --open
+**🏰 ตัวอย่างระดับตำนาน (Fullstack Monorepo พร้อบครบ):**
+```bash
+npx create-pol-app my-monorepo --fullstack --pm pnpm --open
 ```
 
 ---
 
 ## 📋 แฟล็กทั้งหมดที่รองรับ (Stacks & Add-ons)
 
-### Stacks (เลือกได้ 1 อย่าง)
-| Flag       | Framework            | รายละเอียด           |
-|------------|--------------------|----------------------|
-| `--react`  | React + Vite       | SPA, JSX, Hot Reload |
-| `--vue`    | Vue + Vite         | SFC, Hot Reload      |
-| `--node`   | Node.js + Express  | REST API, CORS, dotenv |
+### 🚀 Stacks (หัวใจหลัก - เลือกได้ 1 อย่าง หรือใช้ Fullstack)
+| Flag         | Framework            | รายละเอียด           |
+|--------------|--------------------|----------------------|
+| `--react`    | React + Vite       | SPA, JSX, Hot Reload |
+| `--vue`      | Vue + Vite         | SFC, Hot Reload      |
+| `--node`     | Node.js + Express  | REST API, CORS, dotenv |
+| `--fullstack`| Monorepo + Workspaces| สร้าง Root Workspace คลุม Frontend (React/Vue) และ Backend (Node.js) ไว้ใต้โฟลเดอร์ร่มเดียวกัน! |
 
-### Add-ons (ใส่ได้รัวๆ)
-| Flag         | Add-on       | รายละเอียด                  |
+### 🧩 Add-ons ตัวจบงาน (ใส่ได้รัวๆ)
+| Flag         | ฟีเจอร์หลัก       | รายละเอียด                  |
 |--------------|--------------|----------------------------|
-| `--ts`       | TypeScript   | เปลี่ยนเป็นโปรเจค TS อัตโนมัติ (`.tsx`, `tsconfig`) |
-| `--tailwind` | Tailwind CSS | Utility-first CSS framework |
-| `--eslint`   | ESLint       | จับบั๊กตัวอักษรผิด (ปรับ Rule ตาม Stack) |
-| `--prettier` | Prettier     | Code formatting สวยงาม |
-| `--docker`   | Docker       | สร้าง `Dockerfile` และ Compose |
-| `--husky`    | Husky        | จัดการ Pre-commit Hooks (จัดระเบียบโค้ดก่อน git push) |
+| `--router`   | Routing      | วางระบบเปลี่ยนหน้าเว็บอัตโนมัติ (React Router DOM / Vue Router) แถมหน้า Home / About |
+| `--store`    | Store / State | วางระบบแชร์ข้อมูลข้ามหน้าจอ (Zustand สำหรับ React / Pinia สำหรับ Vue) |
+| `--prisma`   | Prisma ORM   | จัดการฐานข้อมูล (SQLite พร้อมปั้นให้) และสคริปต์ db:push สำหรับโหมด Backend |
+| `--test`     | Testing Framework | ติดตั้ง Vitest / Testing Library คลุมสคริปต์จับบั๊กคอมโพเนนต์ |
+| `--ci`       | GitHub Actions | สร้างไฟล์ `ci.yml` จัดการ Build/Lint/Test อัตโนมัติทุกครั้งที่ Push |
+| `--tailwind` | Tailwind CSS | Utility-first CSS framework มาแรงสุดในยุคนี้ |
+| `--eslint`   | ESLint       | จัดการ Rule ดักโค้ดพังก่อนเพื่อนร่วมทีมมาเห็น |
+| `--prettier` | Prettier     | ฟอร์แมตโค้ดจัดหน้าสวยงามในปุ่มเดียว |
+| `--docker`   | Docker       | เสก `Dockerfile` และ `docker-compose.yml` พร้อมขึ้นคลาวด์ |
+| `--husky`    | Husky / Lint-Staged| สั่งตรวจความเรียบร้อยของโค้ดก่อนใครจะกด Git Commit โค้ดเน่าๆ |
 
-### Options อรรถประโยชน์
+### 🛠 Tools / Options อรรถประโยชน์
 | Flag           | รายละเอียด           |
 |----------------|----------------------|
-| `--git`        | `git init` + `git commit` ปฐมฤกษ์ |
-| `--pm <name>`  | เปลี่ยน Package Manager (`npm`, `yarn`, `pnpm`, `bun`)|
-| `--open`       | หลังติดตั้งเสร็จ สั่ง `code .` เปิด VSCode ให้เลย |
-| `--no-install` | ข้ามการลง Dependency (สร้างแค่ไฟล์เฉยๆ) |
+| `--ts`         | เปิดโหมด TypeScript (ใช้คู่ได้กับทุก Framework สร้างเป็น `.tsx/.ts` ทันที) |
+| `--pm <name>`  | ล็อคเป้า Package Manager (มีให้เลือก `npm`, `yarn`, `pnpm`, `bun`) |
+| `--git`        | สั่งรัน `git init` และเขียน Initial commit ผูกโปรเจคอัตโนมัติ |
+| `--open`       | สร้างเสร็จสั่งยิงโชว์บน Visual Studio Code ขึ้นมาเลย |
+| `--no-install` | สั่งให้ระบบ "ข้ามขั้นตอนโหลด npm install" ไปก่อน (ใช้เทสไวๆ) |
 
 ---
 
-## 🔧 โครงสร้างโปรเจคของ CLI นี้
-
-```text
-CLI/
-├── bin/create-app.js             ← Entry point สำหรับคำสั่ง
-├── src/
-│   ├── cli.js                    ← มันสมอง! ประมวลผลแฟล็ก & สั่งการ
-│   ├── engine/templateEngine.js  ← ❤️ หัวใจหลัก: ระบบแปลงตัวแปลขั้นเทพ
-│   ├── generator/scaffolder.js   ← ประกอบร่างก๊อปปี้ไฟล์
-│   ├── installer/installer.js    ← อนิเมชันปิงปอง + npm runner
-│   ├── installer/git.js          ← Auto Git module
-│   ├── addons/                   ← รวมของเล่น! TS, Tailwind, Docker, Husky ฯลฯ
-│   └── utils/logger.js           ← ระบบแต่งสี UI แสนจะละมุน
-├── templates/
-│   ├── react/                    ← โครงร่าง React
-│   ├── vue/                      ← โครงร่าง Vue
-│   └── node/                     ← โครงร่าง Node.js
-└── package.json
-```
+<div align="center">
+  <p>Made with ❤️ for Developers</p>
+</div>
