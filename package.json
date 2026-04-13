@@ -1,6 +1,6 @@
 {
   "name": "create-pol-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI Tool จัดการโปรเจคอัตโนมัติ - scaffold projects with custom template engine",
   "type": "module",
   "bin": {

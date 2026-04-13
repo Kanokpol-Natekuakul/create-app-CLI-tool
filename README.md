@@ -7,7 +7,7 @@
 
 ---
 
-## 🔥 ฟีเจอร์เด่นระดับโลก (Premium Developer Experience)
+## 🔥 ฟีเจอร์เด่น (Developer Experience)
 
 - 🧠 **Smart Template Engine**: มี Engine เขียนขึ้นเอง รองรับตัวแปร, ลูป, เงื่อนไขแบบ Handlebars และ Syntax แบกกันชนพิเศษสำหรับ React/Vue (`{/* tpl:var */}`)
 - 🎨 **Beautiful UI**: ตัวหนังสือไล่สี Gradient พร้อมกรอบตอบโต้สวยงาม และแอนิเมชันตอนโหลดโปรเจค พรีเมียมสุดๆ!
