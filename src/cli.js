@@ -58,6 +58,7 @@ export async function run() {
     .option('--pm <package-manager>', 'Choose package manager (npm, yarn, pnpm, bun)')
     .option('--open', 'Open project in default editor (VSCode)')
     .option('--no-install', 'Skip dependency installation')
+    .option('--dry-run', 'Preview files that would be generated without creating them')
     .action(async (projectName, options) => {
       try {
         await createProject(projectName, options);
@@ -219,6 +220,54 @@ async function createProject(projectNameArg, options) {
   }
   console.log(chalk.white('  📂 Path:    ') + chalk.gray(projectPath));
   console.log('');
+
+  // ─── Dry Run Preview ────────────────────────────────
+  if (options.dryRun) {
+    console.log(chalk.yellow('\n🔍 Dry Run — these files would be generated:\n'));
+
+    const previewFiles = ['package.json', '.gitignore'];
+
+    // Collect template files
+    const { Scaffolder } = await import('./generator/scaffolder.js');
+    const tempScaffolder = new Scaffolder(projectName, projectPath, stackName, addons);
+    const { templateDir } = await tempScaffolder.loadStackTemplate();
+    const addonConfigs = await tempScaffolder._loadAddons();
+
+    // Template files from disk
+    const collectFiles = async (dir, prefix = '') => {
+      try {
+        const entries = await fs.readdir(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+          if (entry.isDirectory()) {
+            await collectFiles(path.join(dir, entry.name), rel);
+          } else {
+            previewFiles.push(rel);
+          }
+        }
+      } catch { /* no files dir */ }
+    };
+    await collectFiles(path.join(templateDir, 'files'));
+
+    // Addon config files
+    for (const ac of addonConfigs) {
+      if (ac.configFiles) {
+        previewFiles.push(...Object.keys(ac.configFiles));
+      }
+    }
+
+    // Print tree
+    const sorted = [...new Set(previewFiles)].sort();
+    for (const f of sorted) {
+      const depth = f.split('/').length - 1;
+      const indent = '  '.repeat(depth);
+      const name = f.split('/').pop();
+      console.log(chalk.gray(`  ${indent}├── `) + chalk.white(name));
+    }
+    console.log(chalk.yellow(`\n  Total: ${sorted.length} files`));
+    console.log(chalk.gray('  (No files were created. Remove --dry-run to scaffold for real.)\n'));
+    return;
+  }
 
   // ─── Scaffold ───────────────────────────────────────
   if (stackName === 'fullstack') {
