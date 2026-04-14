@@ -15,6 +15,8 @@
 - 📦 **Multi-Package Manager**: เลือกลง Dependency ด้วย `npm`, `yarn`, `pnpm` หรือวิ่งผ่านความเร็วแสงแบบ `bun` ได้ดั่งใจ (`--pm`)
 - 🧩 **Modular Add-ons มหาศาล**: เลือกรวมร่างฟีเจอร์ที่คุณอยากได้ ทั้ง Routing, Store, ORM หรือ Testing ได้อย่างอิสระ
 - 🦕 **TypeScript First**: สั่งเปิดใช้งาน TypeScript (`--ts`) แปลงโครงสร้างโค้ดเป็น `.tsx/.ts` ให้ทันที!
+- 🔍 **Dry Run Preview**: ดูรายการไฟล์ทั้งหมดก่อนสร้างจริง ด้วย `--dry-run` ไม่ต้องกลัวพลาด!
+- 🔔 **Update Notifier**: แจ้งเตือนให้อัปเดตเวอร์ชันใหม่อัตโนมัติทุกครั้งที่รัน
 
 ---
 
@@ -54,7 +56,7 @@ npx create-pol-app epic-frontend --react --ts --router --store --tailwind --test
 
 **☁️ ตัวอย่างระดับเทพ (Backend API สกิลบอส):**
 ```bash
-npx create-pol-app my-api --node --ts --prisma --eslint --docker --ci
+npx create-pol-app my-api --node --ts --prisma --eslint --docker --ci --env
 ```
 
 **🏰 ตัวอย่างระดับตำนาน (Fullstack Monorepo พร้อบครบ):**
@@ -87,6 +89,7 @@ npx create-pol-app my-monorepo --fullstack --pm pnpm --open
 | `--prettier` | Prettier     | ฟอร์แมตโค้ดจัดหน้าสวยงามในปุ่มเดียว |
 | `--docker`   | Docker       | เสก `Dockerfile` และ `docker-compose.yml` พร้อมขึ้นคลาวด์ |
 | `--husky`    | Husky / Lint-Staged| สั่งตรวจความเรียบร้อยของโค้ดก่อนใครจะกด Git Commit โค้ดเน่าๆ |
+| `--env`      | Environment Vars | สร้างไฟล์ `.env.example` อัตโนมัติ (JWT Secret สุ่มให้ + ค่า VITE_ สำหรับ Frontend) |
 
 ### 🛠 Tools / Options อรรถประโยชน์
 | Flag           | รายละเอียด           |
@@ -96,6 +99,7 @@ npx create-pol-app my-monorepo --fullstack --pm pnpm --open
 | `--git`        | สั่งรัน `git init` และเขียน Initial commit ผูกโปรเจคอัตโนมัติ |
 | `--open`       | สร้างเสร็จสั่งยิงโชว์บน Visual Studio Code ขึ้นมาเลย |
 | `--no-install` | สั่งให้ระบบ "ข้ามขั้นตอนโหลด npm install" ไปก่อน (ใช้เทสไวๆ) |
+| `--dry-run`  | แสดงรายการไฟล์ที่จะถูกสร้าง โดยไม่สร้างจริง (ใช้ตรวจสอบก่อนตัดสินใจ) |
 
 ---
 
