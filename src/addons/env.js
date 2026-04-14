@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 export function getConfig({ stackName, hasAddon }) {
   const lines = [];
 
@@ -17,7 +19,7 @@ export function getConfig({ stackName, hasAddon }) {
 
   if (stackName === 'node') {
     lines.push('# ─── Backend ───────────────────────────');
-    lines.push('JWT_SECRET=change-me-to-a-random-string');
+    lines.push(`JWT_SECRET=${crypto.randomUUID()}-${crypto.randomUUID()}`);
     lines.push('CORS_ORIGIN=http://localhost:5173');
     lines.push('');
 

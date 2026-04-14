@@ -5,10 +5,18 @@ import { logger } from '../utils/logger.js';
 
 const execAsync = util.promisify(exec);
 
+const ALLOWED_PM = ['npm', 'yarn', 'pnpm', 'bun'];
+
 /**
  * Install dependencies using chosen package manager
  */
 export async function installDependencies(projectPath, pm = 'npm') {
+  // Security: validate package manager against whitelist to prevent command injection
+  if (!ALLOWED_PM.includes(pm)) {
+    logger.error(`Invalid package manager "${pm}". Allowed: ${ALLOWED_PM.join(', ')}`);
+    return;
+  }
+
   const spinner = ora({
     text: 'Installing packages (this might take a while)...',
     spinner: 'bouncingBar',

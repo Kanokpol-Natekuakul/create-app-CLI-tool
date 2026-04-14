@@ -340,11 +340,11 @@ async function createProject(projectNameArg, options) {
 
   if (openEditor) {
     try {
-      const { exec } = await import('child_process');
+      const { execFile } = await import('child_process');
       const util = await import('util');
-      const execAsync = util.promisify(exec);
+      const execFileAsync = util.promisify(execFile);
       logger.info('Opening VSCode... 💻');
-      await execAsync('code .', { cwd: projectPath });
+      await execFileAsync('code', ['.'], { cwd: projectPath, shell: true });
       process.exit(0);
     } catch {
       logger.warn('Failed to open VSCode. Make sure "code" is in your system PATH.');
