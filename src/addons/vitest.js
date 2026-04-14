@@ -13,7 +13,7 @@ export function getConfig({ stackName }) {
   let configFiles = {};
 
   if (stackName === 'react') {
-    devDependencies['@testing-library/react'] = '^14.2.0';
+    devDependencies['@testing-library/react'] = '^16.0.0';
     devDependencies['@testing-library/jest-dom'] = '^6.4.0';
     devDependencies['jsdom'] = '^24.0.0';
 
